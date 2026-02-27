@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -29,8 +30,8 @@
     <!-- ===== Geo Tags ===== -->
     <meta name="geo.region" content="AE-SH">
     <meta name="geo.placename" content="Kalba, Sharjah">
-    <meta name="geo.position" content="25.0743;56.3557">
-    <meta name="ICBM" content="25.0743, 56.3557">
+    <meta name="geo.position" content="25.0790678;56.3583036">
+    <meta name="ICBM" content="25.0790678, 56.3583036">
     
     <!-- ===== Google Fonts & Icons ===== -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -60,6 +61,47 @@
             --gray: #F5F0E8;
             --white: #FFFFFF;
             --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        /* ===== مؤشر الماوس المخصص ===== */
+        @media (min-width: 769px) {
+            .cursor-dot, .cursor-outline {
+                display: block;
+            }
+        }
+        
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 999999;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px var(--secondary), 0 0 40px rgba(198, 164, 63, 0.5);
+            transition: width 0.1s, height 0.1s, background 0.1s;
+            display: none;
+        }
+        
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 999998;
+            transform: translate(-50%, -50%);
+            backdrop-filter: blur(4px);
+            background: rgba(198, 164, 63, 0.1);
+            box-shadow: 0 0 30px rgba(198, 164, 63, 0.3);
+            transition: width 0.15s, height 0.15s, border 0.15s, background 0.15s;
+            display: none;
         }
 
         /* ===== شريط التحميل ===== */
@@ -112,12 +154,17 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 80px;
+            height: 90px;
         }
         .logo__img {
-            height: 50px;
+            height: 70px;
             width: auto;
-            border-radius: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .logo__img:hover {
+            transform: scale(1.05);
         }
         .nav__list {
             display: flex;
@@ -206,7 +253,7 @@
             align-items: center;
             text-align: center;
             color: var(--white);
-            padding-top: 80px;
+            padding-top: 90px;
         }
         .hero__content {
             max-width: 800px;
@@ -349,6 +396,32 @@
             opacity: 0.9;
         }
 
+        /* ===== تصنيفات المنيو ===== */
+        .menu-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+        .category-btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+        }
+        .category-btn.active,
+        .category-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
         /* ===== شبكة المنيو ===== */
         .menu__grid {
             display: grid;
@@ -363,6 +436,15 @@
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
             border: 1px solid rgba(139, 107, 77, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .menu-item:hover {
             transform: translateY(-10px);
@@ -372,6 +454,10 @@
             width: 100%;
             height: 250px;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .menu-item:hover .menu-item__image {
+            transform: scale(1.05);
         }
         .menu-item__content {
             padding: 25px;
@@ -411,32 +497,6 @@
             text-align: center;
         }
 
-        /* ===== شبكة الذبائح ===== */
-        .specials__grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-        .special-card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-        .special-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-        .special-card__image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-        .special-card__content {
-            padding: 25px;
-        }
-
         /* ===== شبكة التقييمات ===== */
         .reviews__grid {
             display: grid;
@@ -453,6 +513,7 @@
         }
         .review-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
         .review-stars {
             color: gold;
@@ -505,7 +566,7 @@
         }
         .map {
             width: 100%;
-            height: 400px;
+            height: 450px;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--shadow);
@@ -514,7 +575,7 @@
             width: 100%;
             height: 100%;
             border: 0;
-            filter: grayscale(30%);
+            filter: grayscale(20%);
         }
 
         /* ===== الفوتر ===== */
@@ -530,10 +591,11 @@
             margin-bottom: 40px;
         }
         .footer__logo {
-            height: 60px;
+            height: 80px;
             width: auto;
             margin-bottom: 20px;
-            border-radius: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
         .footer__text {
             color: rgba(255,255,255,0.7);
@@ -587,108 +649,6 @@
             color: rgba(255,255,255,0.5);
         }
 
-        /* ===== مودال المنيو الكامل ===== */
-        .menu-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(10px);
-            z-index: 9999;
-            overflow-y: auto;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .menu-modal.open {
-            display: block;
-            opacity: 1;
-        }
-        .menu-modal__header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px;
-            background: rgba(0,0,0,0.9);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        .menu-modal__title {
-            color: var(--white);
-            font-size: 2rem;
-        }
-        .menu-modal__close {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: var(--white);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .menu-modal__close:hover {
-            background: var(--secondary);
-            color: var(--dark);
-        }
-        .menu-modal__categories {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 20px 30px;
-            background: rgba(0,0,0,0.8);
-            position: sticky;
-            top: 90px;
-            z-index: 9;
-        }
-        .category-btn {
-            padding: 10px 25px;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: transparent;
-            color: var(--white);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Cairo', sans-serif;
-        }
-        .category-btn.active,
-        .category-btn:hover {
-            background: var(--secondary);
-            color: var(--dark);
-            border-color: var(--secondary);
-        }
-        .menu-modal__grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 30px;
-        }
-        .full-menu-item {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-            color: var(--white);
-        }
-        .full-menu-item:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--secondary);
-            transform: translateX(-5px);
-        }
-        .full-menu-name {
-            font-weight: 600;
-        }
-        .full-menu-price {
-            color: var(--secondary);
-            font-weight: 700;
-        }
-
         /* ===== اللغة الإنجليزية ===== */
         [dir="ltr"] {
             font-family: 'Montserrat', 'Cairo', sans-serif;
@@ -713,10 +673,8 @@
         /* ===== تحسينات الجوال ===== */
         @media (max-width: 1024px) {
             .menu__grid,
-            .specials__grid,
             .reviews__grid,
-            .footer__grid,
-            .menu-modal__grid {
+            .footer__grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -724,13 +682,14 @@
         @media (max-width: 768px) {
             .nav {
                 position: fixed;
-                top: 80px;
+                top: 90px;
                 left: -100%;
                 width: 100%;
-                height: calc(100vh - 80px);
+                height: calc(100vh - 90px);
                 background: var(--light);
                 transition: left 0.3s ease;
                 padding: 40px 20px;
+                z-index: 999;
             }
             .nav.active {
                 left: 0;
@@ -770,15 +729,13 @@
             .section__title {
                 font-size: 2.2rem;
             }
+            .menu__grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
-            .menu__grid,
-            .specials__grid,
             .reviews__grid,
-            .menu-modal__grid {
-                grid-template-columns: 1fr;
-            }
             .footer__grid {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -791,10 +748,17 @@
                 align-items: center;
                 text-align: center;
             }
+            .footer__logo {
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- ===== مؤشر الماوس المخصص ===== -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
 
     <!-- ===== شريط التحميل ===== -->
     <div class="loader" id="loader">
@@ -809,12 +773,11 @@
             </a>
             <nav class="nav" id="nav">
                 <ul class="nav__list">
-                    <li class="nav__item"><a href="#home" class="nav__link active">الرئيسية</a></li>
-                    <li class="nav__item"><a href="#about" class="nav__link">عن المطعم</a></li>
-                    <li class="nav__item"><a href="#menu" class="nav__link">المنيو</a></li>
-                    <li class="nav__item"><a href="#specials" class="nav__link">عروضنا</a></li>
-                    <li class="nav__item"><a href="#reviews" class="nav__link">آراء الزبائن</a></li>
-                    <li class="nav__item"><a href="#contact" class="nav__link">اتصل بنا</a></li>
+                    <li class="nav__item"><a href="#home" class="nav__link active"><span class="lang-ar">الرئيسية</span><span class="lang-en">Home</span></a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link"><span class="lang-ar">عن المطعم</span><span class="lang-en">About</span></a></li>
+                    <li class="nav__item"><a href="#menu" class="nav__link"><span class="lang-ar">المنيو</span><span class="lang-en">Menu</span></a></li>
+                    <li class="nav__item"><a href="#reviews" class="nav__link"><span class="lang-ar">آراء الزبائن</span><span class="lang-en">Reviews</span></a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link"><span class="lang-ar">اتصل بنا</span><span class="lang-en">Contact</span></a></li>
                 </ul>
             </nav>
             <div class="header__actions">
@@ -830,7 +793,7 @@
     <section class="hero" id="home">
         <div class="container hero__container">
             <div class="hero__content">
-                <p class="hero__subtitle"><span class="lang-ar">Pibu Restaurant</span><span class="lang-en">Pibu Restaurant</span></p>
+                <p class="hero__subtitle">Pibu Restaurant</p>
                 <h1 class="hero__title"><span class="lang-ar">مطعم بيبو</span><span class="lang-en">Pibu Restaurant</span></h1>
                 <p class="hero__description"><span class="lang-ar">تجربة طعام عصرية في كلباء</span><span class="lang-en">Modern Dining in Kalba</span></p>
                 <div class="hero__buttons">
@@ -850,8 +813,8 @@
                 <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Pibu Restaurant Interior" class="about__image">
                 <div class="about__content">
                     <p class="about__subtitle"><span class="lang-ar">قصتنا</span><span class="lang-en">Our Story</span></p>
-                    <h3 class="about__title"><span class="lang-ar">نكهات عصرية في أجواء راقية</span><span class="lang-en">Modern Flavors in a Sophisticated Atmosphere</span></h3>
-                    <p class="about__text"><span class="lang-ar">مرحباً بكم في بيبو، وجهتكم المثالية لتجربة طعام استثنائية في كلباء. نقدم لكم مزيجاً فريداً من النكهات العصرية والمأكولات المبتكرة، محضرة بأجود المكونات الطازجة.</span><span class="lang-en">Welcome to Pibu, your destination for an exceptional dining experience in Kalba. We offer a unique blend of modern flavors and innovative dishes, prepared with the finest fresh ingredients.</span></p>
+                    <h3 class="about__title"><span class="lang-ar">نكهات عصرية في أجواء تراثية</span><span class="lang-en">Modern Flavors in a Heritage Atmosphere</span></h3>
+                    <p class="about__text"><span class="lang-ar">مرحباً بكم في بيبو، وجهتكم المثالية لتجربة طعام استثنائية في كلباء. نقدم لكم مزيجاً فريداً من النكهات العصرية والمأكولات المبتكرة، محضرة بأجود المكونات الطازجة في أجواء راقية مستوحاة من تراث المنطقة.</span><span class="lang-en">Welcome to Pibu, your destination for an exceptional dining experience in Kalba. We offer a unique blend of modern flavors and innovative dishes, prepared with the finest fresh ingredients in a sophisticated atmosphere inspired by the region's heritage.</span></p>
                     <p class="about__text"><span class="lang-ar">فريق العمل الودود والمكان المريح يضمنان لكم تجربة لا تُنسى، سواء كنتم تبحثون عن عشاء رومانسي أو لقاء عائلي مميز.</span><span class="lang-en">Our friendly staff and comfortable setting ensure an unforgettable experience, whether you're looking for a romantic dinner or a special family gathering.</span></p>
                     <div class="rating-box">
                         <h3><span class="lang-ar">تقييمات العملاء</span><span class="lang-en">Customer Rating</span></h3>
@@ -866,155 +829,43 @@
         </div>
     </section>
 
-    <!-- ===== قائمة الطعام ===== -->
+    <!-- ===== قائمة الطعام مع التصنيفات ===== -->
     <section class="section section--gray" id="menu">
         <div class="container">
             <h2 class="section__title"><span class="lang-ar">قائمة الطعام</span><span class="lang-en">Our Menu</span></h2>
             <div class="section__divider"></div>
-            <div class="menu__grid">
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1645112411342-4665c449a020?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Truffle Pasta" class="menu-item__image">
-                    <div class="menu-item__content">
-                        <div class="menu-item__header">
-                            <h3 class="menu-item__title">Truffle Pasta</h3>
-                            <span class="menu-item__price">51 dh</span>
-                        </div>
-                        <p class="menu-item__desc">Penne pasta, garlic, onion, truffle paste, cooking cream, mushrooms, parmesan</p>
-                        <span class="badge"><span class="lang-ar">الأكثر مبيعاً</span><span class="lang-en">Bestseller</span></span>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Jalapeno Burger" class="menu-item__image">
-                    <div class="menu-item__content">
-                        <div class="menu-item__header">
-                            <h3 class="menu-item__title">Jalapeno Burger</h3>
-                            <span class="menu-item__price">49 dh</span>
-                        </div>
-                        <p class="menu-item__desc">Fresh beef patties, lettuce, sliced cheese, jalapeños, BM sauce</p>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Dynamite Shrimps" class="menu-item__image">
-                    <div class="menu-item__content">
-                        <div class="menu-item__header">
-                            <h3 class="menu-item__title">Dynamite Shrimps</h3>
-                            <span class="menu-item__price">40 dh</span>
-                        </div>
-                        <p class="menu-item__desc">Fried shrimps, sriracha mayo, spring onion</p>
-                        <span class="badge"><span class="lang-ar">مقبلات</span><span class="lang-en">Appetizer</span></span>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Truffle Pizza" class="menu-item__image">
-                    <div class="menu-item__content">
-                        <div class="menu-item__header">
-                            <h3 class="menu-item__title">Truffle Pizza</h3>
-                            <span class="menu-item__price">55 dh</span>
-                        </div>
-                        <p class="menu-item__desc">Italian dough, mozzarella, mushrooms, black truffle</p>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Mushroom Beef Risotto" class="menu-item__image">
-                    <div class="menu-item__content">
-                        <div class="menu-item__header">
-                            <h3 class="menu-item__title">Mushroom Beef Risotto</h3>
-                            <span class="menu-item__price">55 dh</span>
-                        </div>
-                        <p class="menu-item__desc">Risotto rice, cream, mushrooms, parmesan, brisket beef, bbq sauce</p>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Spicy Ponche" class="menu-item__image">
-                    <div class="menu-item__content">
-                        <div class="menu-item__header">
-                            <h3 class="menu-item__title">Spicy Ponche</h3>
-                            <span class="menu-item__price">21 dh</span>
-                        </div>
-                        <p class="menu-item__desc">Chili syrup, passion fruit, dragon fruit</p>
-                        <span class="badge"><span class="lang-ar">موكتيل</span><span class="lang-en">Mocktail</span></span>
-                    </div>
-                </div>
+            
+            <!-- تصنيفات المنيو -->
+            <div class="menu-categories" id="menuCategories">
+                <button class="category-btn active" onclick="filterMenu('all')"><span class="lang-ar">الكل</span><span class="lang-en">All</span></button>
+                <button class="category-btn" onclick="filterMenu('pasta')">Pastas</button>
+                <button class="category-btn" onclick="filterMenu('pizza')">Pizza</button>
+                <button class="category-btn" onclick="filterMenu('burgers')">Burgers</button>
+                <button class="category-btn" onclick="filterMenu('appetizers')"><span class="lang-ar">مقبلات</span><span class="lang-en">Appetizers</span></button>
+                <button class="category-btn" onclick="filterMenu('desserts')"><span class="lang-ar">حلويات</span><span class="lang-en">Desserts</span></button>
+                <button class="category-btn" onclick="filterMenu('drinks')"><span class="lang-ar">مشروبات</span><span class="lang-en">Drinks</span></button>
             </div>
+
+            <!-- شبكة المنيو -->
+            <div class="menu__grid" id="menuGrid"></div>
+            
             <div class="text-center">
                 <button class="btn btn--primary" onclick="openFullMenu()"><span class="lang-ar">عرض القائمة الكاملة</span><span class="lang-en">View Full Menu</span> <i class="fas fa-arrow-left"></i></button>
             </div>
         </div>
     </section>
 
-    <!-- ===== العروض الخاصة ===== -->
-    <section class="section" id="specials">
-        <div class="container">
-            <h2 class="section__title"><span class="lang-ar">عروضنا الخاصة</span><span class="lang-en">Special Offers</span></h2>
-            <div class="section__divider"></div>
-            <div class="specials__grid">
-                <div class="special-card">
-                    <img src="https://images.unsplash.com/photo-1608039829572-78524f79c4c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Tokyo Salad" class="special-card__image">
-                    <div class="special-card__content">
-                        <div class="menu-item__header">
-                            <h3 class="menu-item__title">Tokyo Salad</h3>
-                            <span class="menu-item__price">35 dh</span>
-                        </div>
-                        <p class="menu-item__desc">Arugula, strawberry, beetroot, quinoa, Tokyo sauce, feta</p>
-                    </div>
-                </div>
-                <div class="special-card">
-                    <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Molten Chocolate Cake" class="special-card__image">
-                    <div class="special-card__content">
-                        <div class="menu-item__header">
-                            <h3 class="menu-item__title">Molten Chocolate Cake</h3>
-                            <span class="menu-item__price">28 dh</span>
-                        </div>
-                        <p class="menu-item__desc">Warm chocolate cake with gooey molten center</p>
-                    </div>
-                </div>
-                <div class="special-card">
-                    <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Açaí Bowl" class="special-card__image">
-                    <div class="special-card__content">
-                        <div class="menu-item__header">
-                            <h3 class="menu-item__title">Açaí Bowl</h3>
-                            <span class="menu-item__price">29 dh</span>
-                        </div>
-                        <p class="menu-item__desc">Fresh acai with berries and peanut butter</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- ===== آراء الزبائن ===== -->
-    <section class="section section--gray" id="reviews">
+    <section class="section" id="reviews">
         <div class="container">
             <h2 class="section__title"><span class="lang-ar">آراء الزبائن</span><span class="lang-en">Customer Reviews</span></h2>
             <div class="section__divider"></div>
-            <div class="reviews__grid">
-                <div class="review-card">
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="review-text"><span class="lang-ar">"بكل صراحة أكلهم جداً لذيذ، الأطباق كلها رائعة والموظفين ودودين جداً"</span><span class="lang-en">"Honestly, the food is delicious, all dishes are amazing and the staff are very friendly"</span></p>
-                    <p class="review-meta">- أمنة الحميدية</p>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="review-text"><span class="lang-ar">"مكان راقي، أطباق متنوعة وحلوة، والخدمة على مستوى عالي"</span><span class="lang-en">"Sophisticated place, diverse and delicious dishes, high-level service"</span></p>
-                    <p class="review-meta">- Saeed Alnaqbi</p>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="review-text"><span class="lang-ar">"Amazing tasty food, nice team, we will come back there for sure again"</span><span class="lang-en">"Amazing tasty food, nice team, we will come back there for sure again"</span></p>
-                    <p class="review-meta">- Evelina Dark</p>
-                </div>
-            </div>
+            <div class="reviews__grid" id="reviewsGrid"></div>
         </div>
     </section>
 
     <!-- ===== اتصل بنا ===== -->
-    <section class="section" id="contact">
+    <section class="section section--gray" id="contact">
         <div class="container">
             <h2 class="section__title"><span class="lang-ar">اتصل بنا</span><span class="lang-en">Contact Us</span></h2>
             <div class="section__divider"></div>
@@ -1024,7 +875,8 @@
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <h4><span class="lang-ar">العنوان</span><span class="lang-en">Address</span></h4>
-                            <p><span class="lang-ar">حي الغلة - كلباء، الشارقة</span><span class="lang-en">Al Ghala - Kalba, Sharjah</span></p>
+                            <p>39H5+J8F Kalba, Sharjah - United Arab Emirates</p>
+                            <p style="font-size: 0.9rem; color: #999;">25.0790678, 56.3583036</p>
                         </div>
                     </div>
                     <div class="info-item">
@@ -1051,7 +903,7 @@
                     </div>
                 </div>
                 <div class="map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.4747!2d56.2678!3d25.0197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDAxJzEwLjkiTiA1NsKwMTYnMDQuMSJF!5e0!3m2!1sen!2sae!4v1620000000000!5m2!1sen!2sae" loading="lazy"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.4747!2d56.3583036!3d25.0790678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDA0JzQ0LjYiTiA1NsKwMjEnMzAuMCJF!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
@@ -1075,8 +927,8 @@
                     <ul class="footer__links">
                         <li><a href="#about"><span class="lang-ar">عن المطعم</span><span class="lang-en">About Us</span></a></li>
                         <li><a href="#menu"><span class="lang-ar">المنيو</span><span class="lang-en">Menu</span></a></li>
-                        <li><a href="#specials"><span class="lang-ar">العروض</span><span class="lang-en">Specials</span></a></li>
                         <li><a href="#reviews"><span class="lang-ar">التقييمات</span><span class="lang-en">Reviews</span></a></li>
+                        <li><a href="#contact"><span class="lang-ar">اتصل بنا</span><span class="lang-en">Contact</span></a></li>
                     </ul>
                 </div>
                 <div>
@@ -1093,33 +945,61 @@
         </div>
     </footer>
 
-    <!-- ===== مودال المنيو الكامل ===== -->
-    <div class="menu-modal" id="menuModal">
-        <div class="menu-modal__header">
-            <h2 class="menu-modal__title"><span class="lang-ar">القائمة الكاملة</span><span class="lang-en">Full Menu</span></h2>
-            <button class="menu-modal__close" onclick="closeFullMenu()"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="menu-modal__categories" id="menuCategories">
-            <button class="category-btn active" onclick="filterMenu('all')"><span class="lang-ar">الكل</span><span class="lang-en">All</span></button>
-            <button class="category-btn" onclick="filterMenu('appetizers')"><span class="lang-ar">مقبلات</span><span class="lang-en">Appetizers</span></button>
-            <button class="category-btn" onclick="filterMenu('main')"><span class="lang-ar">أطباق رئيسية</span><span class="lang-en">Main</span></button>
-            <button class="category-btn" onclick="filterMenu('pizza')">Pizza</button>
-            <button class="category-btn" onclick="filterMenu('pasta')">Pasta</button>
-            <button class="category-btn" onclick="filterMenu('desserts')"><span class="lang-ar">حلويات</span><span class="lang-en">Desserts</span></button>
-            <button class="category-btn" onclick="filterMenu('drinks')"><span class="lang-ar">مشروبات</span><span class="lang-en">Drinks</span></button>
-        </div>
-        <div class="menu-modal__grid" id="fullMenuGrid">
-            <!-- يتم تعبئتها بالجافاسكريبت -->
-        </div>
-    </div>
-
     <script>
         // ===== إخفاء شريط التحميل =====
         window.addEventListener('load', function() {
             setTimeout(function() {
                 document.getElementById('loader').classList.add('hidden');
             }, 800);
+            
+            // تفعيل مؤشر الماوس للكمبيوتر
+            if (window.innerWidth > 768) {
+                document.querySelector('.cursor-dot').style.display = 'block';
+                document.querySelector('.cursor-outline').style.display = 'block';
+            }
         });
+
+        // ===== مؤشر الماوس =====
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+        
+        if (cursorDot && cursorOutline) {
+            let mouseX = 0, mouseY = 0;
+            let outlineX = 0, outlineY = 0;
+            
+            window.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.left = mouseX + 'px';
+                cursorDot.style.top = mouseY + 'px';
+            });
+            
+            function animateCursor() {
+                outlineX += (mouseX - outlineX) * 0.15;
+                outlineY += (mouseY - outlineY) * 0.15;
+                cursorOutline.style.left = outlineX + 'px';
+                cursorOutline.style.top = outlineY + 'px';
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+            
+            // تأثيرات hover للأزرار
+            const hoverElements = document.querySelectorAll('a, button, .menu-item, .review-card');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorDot.style.width = '12px';
+                    cursorDot.style.height = '12px';
+                    cursorOutline.style.width = '50px';
+                    cursorOutline.style.height = '50px';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorDot.style.width = '8px';
+                    cursorDot.style.height = '8px';
+                    cursorOutline.style.width = '40px';
+                    cursorOutline.style.height = '40px';
+                });
+            });
+        }
 
         // ===== ثبات شريط التنقل =====
         const header = document.getElementById('header');
@@ -1184,105 +1064,160 @@
                 html.dir = 'rtl';
                 this.textContent = 'English';
             }
+            // تحديث المنيو بعد تغيير اللغة
+            filterMenu(currentCategory);
         });
 
-        // ===== بيانات المنيو الكامل =====
-        const fullMenuData = [
-            // مقبلات
-            { cat: 'appetizers', name: 'Fuji Fries', price: '37 dh', desc: 'Sweet potato fries, potato fries, parmesan cheese, furikake, honey sriracha mayo' },
-            { cat: 'appetizers', name: 'Dynamite Shrimps', price: '40 dh', desc: 'Fried shrimps, sriracha mayo, spring onion' },
-            { cat: 'appetizers', name: 'Tokyo Salad', price: '35 dh', desc: 'Arugula, strawberry, beetroot, quinoa, Tokyo sauce, feta' },
-            { cat: 'appetizers', name: 'Pibu Crab Salad', price: '30 dh', desc: 'Red cabbage, corn, crab sticks, sesame, coriander, Bibo mayo' },
-            { cat: 'appetizers', name: 'HSP Smokey Fries', price: '45 dh', desc: 'Potato wedges, brisket, sour cream, bbq mayo, green onion' },
-            { cat: 'appetizers', name: 'Charred Corn Rib', price: '33 dh', desc: 'Corn, butter, special seasoning, ranch sauce, parsley' },
-            { cat: 'appetizers', name: 'Honey Spice Chicken', price: '34 dh', desc: 'Tender chicken, spicy honey sauce, sesame, green onions' },
-            { cat: 'appetizers', name: 'Fried Calamari', price: '38 dh', desc: 'Crispy calamari, lemon, chimechuri sauce, BM sauce' },
-            
-            // أطباق رئيسية
-            { cat: 'main', name: 'Jalapeno Burger', price: '49 dh', desc: 'Beef patties, lettuce, cheese, jalapeños, BM sauce' },
-            { cat: 'main', name: 'Beef Brisket Burger', price: '50 dh', desc: 'Brisket, bun, cheese, onion ring, bbq mayo' },
-            { cat: 'main', name: 'Fried Chicken Burger', price: '39 dh', desc: 'Crispy chicken, bun, red cabbage, cheese' },
-            { cat: 'main', name: 'Rosa Pasta', price: '37 dh', desc: 'Cream, tomato paste, broccoli, parmesan' },
-            { cat: 'main', name: 'Pesto Pasta', price: '40 dh', desc: 'Penne, pesto sauce, garlic, onion' },
-            { cat: 'main', name: 'Alfredo Pasta', price: '37 dh', desc: 'Penne, mushroom, cooking cream, parmesan' },
-            { cat: 'main', name: 'Truffle Pasta', price: '51 dh', desc: 'Penne, truffle paste, mushroom, parmesan' },
-            { cat: 'main', name: 'Mushroom Beef Risotto', price: '55 dh', desc: 'Risotto, cream, mushroom, parmesan, brisket' },
-            { cat: 'main', name: 'Mix Sauce Risotto', price: '37 dh', desc: 'Risotto, cream, garlic, onion, mushroom, parmesan' },
-            { cat: 'main', name: 'Lasagna', price: '56 dh', desc: 'Pasta layers, minced meat, béchamel, mozzarella' },
+        // ===== بيانات المنيو =====
+        const menuData = [
+            // باستا
+            { cat: 'pasta', name: 'Truffle Pasta', price: '51 dh', desc: 'Penne pasta, garlic, onion, truffle paste, cooking cream, mushrooms, parmesan', image: 'https://images.unsplash.com/photo-1645112411342-4665c449a020?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', badge: 'Bestseller' },
+            { cat: 'pasta', name: 'Rosa Pasta', price: '37 dh', desc: 'Cream, tomato paste, broccoli, parmesan', image: 'https://images.unsplash.com/photo-1473093295043-cdd812d0d601?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'pasta', name: 'Pesto Pasta', price: '40 dh', desc: 'Penne, pesto sauce, garlic, onion', image: 'https://images.unsplash.com/photo-1473093226795-af9932fe5856?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'pasta', name: 'Alfredo Pasta', price: '37 dh', desc: 'Penne, mushroom, cooking cream, parmesan', image: 'https://images.unsplash.com/photo-1645112411342-4665c449a020?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'pasta', name: 'Mushroom Beef Risotto', price: '55 dh', desc: 'Risotto, cream, mushroom, parmesan, brisket', image: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
             
             // بيتزا
-            { cat: 'pizza', name: 'Crispy Chicken Pizza', price: '52 dh', desc: 'Italian dough, mozzarella, parmesan, tomato sauce, dynamite sauce, crispy chicken' },
-            { cat: 'pizza', name: 'Pepperoni Pizza', price: '48 dh', desc: 'Italian dough, pepperoni, mozzarella, parmesan, parsley' },
-            { cat: 'pizza', name: 'Smoked Brisket Meat Pizza', price: '55 dh', desc: 'Italian dough, brisket, jalapeños, pickles, bbq sauce' },
-            { cat: 'pizza', name: 'Dynamite Shrimp Pizza', price: '56 dh', desc: 'Italian dough, mozzarella, dynamite sauce, dynamite shrimp' },
-            { cat: 'pizza', name: 'Napolitana Pizza', price: '45 dh', desc: 'Italian dough, mozzarella, parmesan, tomato sauce' },
-            { cat: 'pizza', name: 'Truffle Pizza', price: '55 dh', desc: 'Italian dough, mozzarella, mushrooms, black truffle' },
+            { cat: 'pizza', name: 'Truffle Pizza', price: '55 dh', desc: 'Italian dough, mozzarella, mushrooms, black truffle', image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'pizza', name: 'Dynamite Shrimp Pizza', price: '56 dh', desc: 'Italian dough, mozzarella, dynamite sauce, dynamite shrimp', image: 'https://images.unsplash.com/photo-1594007654729-407eedc4be65?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'pizza', name: 'Crispy Chicken Pizza', price: '52 dh', desc: 'Italian dough, mozzarella, parmesan, tomato sauce, crispy chicken', image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'pizza', name: 'Pepperoni Pizza', price: '48 dh', desc: 'Italian dough, pepperoni, mozzarella, parmesan', image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            
+            // برجر
+            { cat: 'burgers', name: 'Jalapeno Burger', price: '49 dh', desc: 'Beef patties, lettuce, cheese, jalapeños, BM sauce', image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', badge: 'Popular' },
+            { cat: 'burgers', name: 'Beef Brisket Burger', price: '50 dh', desc: 'Brisket, bun, cheese, onion ring, bbq mayo', image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'burgers', name: 'Fried Chicken Burger', price: '39 dh', desc: 'Crispy chicken, bun, red cabbage, cheese', image: 'https://images.unsplash.com/photo-1552611052-33e04de081de?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            
+            // مقبلات
+            { cat: 'appetizers', name: 'Fuji Fries', price: '37 dh', desc: 'Sweet potato fries, potato fries, parmesan, furikake', image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', badge: 'Bestseller' },
+            { cat: 'appetizers', name: 'Dynamite Shrimps', price: '40 dh', desc: 'Fried shrimps, sriracha mayo, spring onion', image: 'https://images.unsplash.com/photo-1608039829572-78524f79c4c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'appetizers', name: 'Tokyo Salad', price: '35 dh', desc: 'Arugula, strawberry, beetroot, quinoa, Tokyo sauce', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'appetizers', name: 'Honey Spice Chicken', price: '34 dh', desc: 'Tender chicken, spicy honey sauce', image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
             
             // حلويات
-            { cat: 'desserts', name: 'Molten Chocolate Cake', price: '28 dh', desc: 'Warm chocolate cake with gooey molten center' },
-            { cat: 'desserts', name: 'French Toast', price: '30 dh', desc: 'Toasted brioche, marble syrup, strawberries, blueberries' },
-            { cat: 'desserts', name: 'Açaí Bowl', price: '29 dh', desc: 'Fresh acai, bananas, strawberries, blackberries, peanut butter' },
+            { cat: 'desserts', name: 'Molten Chocolate Cake', price: '28 dh', desc: 'Warm chocolate cake with gooey molten center', image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'desserts', name: 'French Toast', price: '30 dh', desc: 'Toasted brioche, marble syrup, strawberries, blueberries', image: 'https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'desserts', name: 'Açaí Bowl', price: '29 dh', desc: 'Fresh acai, berries, peanut butter', image: 'https://images.unsplash.com/photo-1590301157890-4810ed352733?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
             
             // مشروبات
-            { cat: 'drinks', name: 'Spicy Ponche', price: '21 dh', desc: 'Chili syrup, passion fruit, dragon fruit' },
-            { cat: 'drinks', name: 'Shiso Mojito', price: '20 dh', desc: 'Cucumber, lemon, yuzu, ginger ale' },
-            { cat: 'drinks', name: 'Cherry Bomb', price: '20 dh', desc: 'Orange, lemon, soda' },
-            { cat: 'drinks', name: 'Alokozay Cola', price: '9 dh', desc: 'Classic cola' },
-            { cat: 'drinks', name: 'Alokozay Breeze', price: '9 dh', desc: 'Light fizzy drink' },
-            { cat: 'drinks', name: 'Açaí Smoothie', price: '35 dh', desc: 'Açaí, peanut sauce' }
+            { cat: 'drinks', name: 'Spicy Ponche', price: '21 dh', desc: 'Chili syrup, passion fruit, dragon fruit', image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'drinks', name: 'Shiso Mojito', price: '20 dh', desc: 'Cucumber, lemon, yuzu, ginger ale', image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { cat: 'drinks', name: 'Açaí Smoothie', price: '35 dh', desc: 'Açaí, peanut sauce', image: 'https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' }
         ];
 
-        // ===== فتح المودال =====
-        window.openFullMenu = function() {
-            document.getElementById('menuModal').classList.add('open');
-            document.body.style.overflow = 'hidden';
-            filterMenu('all');
+        // ===== بيانات التقييمات =====
+        const reviewsData = [
+            { text: 'بكل صراحة أكلهم جداً لذيذ، الأطباق كلها رائعة والموظفين ودودين جداً', author: 'أمنة الحميدية', stars: 5 },
+            { text: 'Amazing tasty food, nice team, we will come back there for sure again', author: 'Evelina Dark', stars: 5 },
+            { text: 'مكان راقي، أطباق متنوعة وحلوة، والخدمة على مستوى عالي', author: 'Saeed Alnaqbi', stars: 5 },
+            { text: 'Best restaurant in Kalba, thanks to Kemmy for the amazing service', author: 'meera', stars: 5 },
+            { text: 'الأكل لذيذ والطاقم خدوم وودود يستحق الزيارة', author: 'Eman Alzaabi', stars: 5 },
+            { text: 'Nice place, Amazing drinks Thanks Jenny', author: 'Mohamed Ramadan', stars: 5 }
+        ];
+
+        let currentCategory = 'all';
+
+        // ===== عرض المنيو =====
+        function displayMenu(category) {
+            const grid = document.getElementById('menuGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            const filtered = category === 'all' ? menuData : menuData.filter(item => item.cat === category);
+            
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'menu-item';
+                card.style.animationDelay = Math.random() * 0.3 + 's';
+                
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="menu-item__image">
+                    <div class="menu-item__content">
+                        <div class="menu-item__header">
+                            <h3 class="menu-item__title">${item.name}</h3>
+                            <span class="menu-item__price">${item.price}</span>
+                        </div>
+                        <p class="menu-item__desc">${item.desc}</p>
+                        ${item.badge ? `<span class="badge">${item.badge}</span>` : ''}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         }
 
-        // ===== إغلاق المودال =====
-        window.closeFullMenu = function() {
-            document.getElementById('menuModal').classList.remove('open');
-            document.body.style.overflow = '';
+        // ===== عرض التقييمات =====
+        function displayReviews() {
+            const grid = document.getElementById('reviewsGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            reviewsData.forEach(review => {
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                
+                let starsHtml = '';
+                for (let i = 0; i < review.stars; i++) {
+                    starsHtml += '<i class="fas fa-star"></i>';
+                }
+                
+                card.innerHTML = `
+                    <div class="review-stars">${starsHtml}</div>
+                    <p class="review-text">"${review.text}"</p>
+                    <p class="review-meta">- ${review.author}</p>
+                `;
+                grid.appendChild(card);
+            });
         }
 
         // ===== تصفية المنيو =====
         window.filterMenu = function(category) {
-            const grid = document.getElementById('fullMenuGrid');
-            const buttons = document.querySelectorAll('.category-btn');
+            currentCategory = category;
             
+            const buttons = document.querySelectorAll('.category-btn');
             buttons.forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.textContent.includes(category === 'all' ? 'الكل' : 
-                    category === 'appetizers' ? 'مقبلات' :
-                    category === 'main' ? 'أطباق' :
+                    category === 'pasta' ? 'Pastas' :
                     category === 'pizza' ? 'Pizza' :
-                    category === 'pasta' ? 'Pasta' :
+                    category === 'burgers' ? 'Burgers' :
+                    category === 'appetizers' ? 'مقبلات' :
                     category === 'desserts' ? 'حلويات' : 'مشروبات')) {
                     btn.classList.add('active');
                 }
             });
-
-            const filtered = category === 'all' ? fullMenuData : fullMenuData.filter(item => item.cat === category);
             
-            grid.innerHTML = '';
-            filtered.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'full-menu-item';
-                div.innerHTML = `
-                    <span class="full-menu-name">${item.name}</span>
-                    <div style="text-align: left;">
-                        <span class="full-menu-price">${item.price}</span>
-                        <p style="color: #999; font-size: 0.85rem; margin-top: 5px;">${item.desc}</p>
-                    </div>
-                `;
-                grid.appendChild(div);
-            });
+            displayMenu(category);
         }
 
-        // ===== إغلاق المودال بالـ ESC =====
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeFullMenu();
+        // ===== فتح المنيو الكامل (للتوسع مستقبلاً) =====
+        window.openFullMenu = function() {
+            alert('جاري تجهيز القائمة الكاملة... قريباً');
+        }
+
+        // ===== التهيئة =====
+        displayMenu('all');
+        displayReviews();
+
+        // ===== إغلاق قائمة الجوال عند تغيير حجم الشاشة =====
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                nav.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+            
+            // تفعيل/إلغاء مؤشر الماوس حسب حجم الشاشة
+            if (window.innerWidth > 768) {
+                document.querySelector('.cursor-dot').style.display = 'block';
+                document.querySelector('.cursor-outline').style.display = 'block';
+            } else {
+                document.querySelector('.cursor-dot').style.display = 'none';
+                document.querySelector('.cursor-outline').style.display = 'none';
+            }
         });
     </script>
 </body>
-    </html>
+</html>
+```
+.
