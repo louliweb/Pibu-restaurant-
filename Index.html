@@ -4,40 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pibu Restaurant | مطعم بيبو</title>
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            font-family: 'Amiri', serif;
+            font-family: 'Cairo', sans-serif;
             background-color: #FDF8F2;
             color: #2C2C2C;
-            line-height: 1.6;
         }
-
-        .en {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* Header Styles */
         .header {
-            background: linear-gradient(135deg, #8B6B4D 0%, #527A7A 100%);
+            background: #8B6B4D;
             color: white;
             padding: 1rem 2rem;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
         .nav-container {
             display: flex;
             justify-content: space-between;
@@ -45,25 +34,520 @@
             max-width: 1400px;
             margin: 0 auto;
         }
-
         .logo {
             font-size: 2rem;
             font-weight: 700;
-            background: rgba(255,255,255,0.1);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
         }
-
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 2rem;
             align-items: center;
         }
-
         .nav-links a {
             color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            color: #F5E6D3;
+        }
+        .lang-toggle {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .lang-toggle:hover {
+            background: white;
+            color: #8B6B4D;
+        }
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 0;
+        }
+        .hero-content {
+            max-width: 900px;
+            padding: 2rem;
+        }
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease;
+        }
+        .hero p {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: #C6A43F;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #B38F2E;
+            transform: translateY(-3px);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
+        }
+        .about {
+            padding: 6rem 2rem;
+            background: #FDF8F2;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            color: #8B6B4D;
+            margin-bottom: 3rem;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: #C6A43F;
+            margin: 1rem auto;
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        .about-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+        }
+        .rating-box {
+            background: linear-gradient(135deg, #8B6B4D, #527A7A);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .rating-box h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .rating-box .stars {
+            color: #FFD700;
+            font-size: 2rem;
+            margin: 1rem 0;
+        }
+        .rating-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .reviews-count {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .menu-section {
+            padding: 6rem 2rem;
+            background: #F5F0E8;
+            text-align: center;
+        }
+        .menu-open-btn {
+            background: #8B6B4D;
+            color: white;
+            border: none;
+            padding: 1.5rem 4rem;
+            font-size: 2rem;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 2rem auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 10px 20px rgba(139, 107, 77, 0.3);
+        }
+        .menu-open-btn:hover {
+            background: #6B4F37;
+            transform: scale(1.05);
+        }
+        .menu-open-btn i {
+            font-size: 2rem;
+        }
+        .reviews {
+            padding: 6rem 2rem;
+            background: #FDF8F2;
+        }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .review-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid #E8DCCC;
+        }
+        .review-stars {
+            color: #FFD700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .review-text {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .reviewer {
+            color: #8B6B4D;
+            font-weight: 600;
+        }
+        .location {
+            padding: 6rem 2rem;
+            background: #F5F0E8;
+        }
+        .location-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .location-info {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+        .info-item i {
+            color: #C6A43F;
+            font-size: 1.5rem;
+            width: 30px;
+        }
+        .contact-form {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #E8DCCC;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #E8DCCC;
+            border-radius: 10px;
+            font-family: inherit;
+        }
+        .submit-btn {
+            background: #C6A43F;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        .submit-btn:hover {
+            background: #B38F2E;
+        }
+        .map {
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .fun-figure {
+            background: #8B6B4D;
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .fun-figure h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .fun-figure p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        .footer {
+            background: #2C2C2C;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .social-links a {
+            color: white;
+            font-size: 2rem;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .social-links a:hover {
+            color: #C6A43F;
+            transform: translateY(-3px);
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero p {
+                font-size: 1.3rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+            }
+            .about-content,
+            .location-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">Pibu</div>
+            <nav class="nav-links">
+                <a href="#home">الرئيسية</a>
+                <a href="#about">عن المطعم</a>
+                <a href="#menu">المنيو</a>
+                <a href="#reviews">آراء الزبائن</a>
+                <a href="#contact">اتصل بنا</a>
+            </nav>
+            <button class="lang-toggle" onclick="toggleLanguage()">English</button>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>مطعم بيبو</h1>
+            <p>Pibu Restaurant</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">اطلب عبر الإمارات</a>
+                <a href="#" class="btn btn-secondary">احجز طاولتك الآن</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2 class="section-title">عن المطعم</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>مرحباً بكم في بيبو، حيث نقدم لكم تجربة طعام استثنائية تجمع بين النكهات العصرية والأجواء التراثية على شاطئ كلباء الجميل.</p>
+                <p>نفتخر بتقديم أطباق مبتكرة باستخدام أجود المكونات الطازجة، مع لمساتنا الخاصة التي تميزنا.</p>
+                <p>فريق عملنا الودود بقيادة "كيمي" و"جيني" في انتظاركم لتجربة لا تُنسى.</p>
+            </div>
+            <div class="rating-box">
+                <h3>تقييم العملاء</h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <div class="rating-number">4.6</div>
+                <div class="reviews-count">من أصل 60+ تقييم</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+        <h2 class="section-title">قائمة الطعام</h2>
+        <button class="menu-open-btn" onclick="openMenu()">
+            <i class="fas fa-utensils"></i>
+            اضغط لفتح المنيو الكامل
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <p style="margin-top: 1rem; color: #666; font-size: 1.1rem;">تصفح جميع أطباقنا الشهية بتفاصيلها وأسعارها</p>
+    </section>
+
+    <section class="reviews" id="reviews">
+        <h2 class="section-title">آراء الزبائن</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"بكل صراحة أكلهم جداً لذيذ، الأطباق كلها رائعة والموظفين ودودين جداً"</p>
+                <p class="reviewer">- أمنة الحميدية</p>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Amazing tasty food, nice team, we will come back there for sure again"</p>
+                <p class="reviewer">- Evelina Dark</p>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"مكان راقي، أطباق متنوعة وحلوة، والخدمة على مستوى عالي"</p>
+                <p class="reviewer">- Saeed Alnaqbi</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="fun-figure">
+        <h3>🧑‍🍳 Chef's Special</h3>
+        <p>جرب ترافل باستا - الطبق الأكثر طلباً هذا الشهر</p>
+    </div>
+
+    <section class="location" id="contact">
+        <h2 class="section-title">اتصل بنا</h2>
+        <div class="location-container">
+            <div class="location-info">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>حي الغلة - كلباء، الشارقة</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <span dir="ltr">056 985 0058</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <span>يومياً من 5:00 مساءً - 12:00 صباحاً (الجمعة حتى 1:00 صباحاً)</span>
+                </div>
+                <div class="info-item">
+                    <i class="fab fa-instagram"></i>
+                    <a href="https://www.instagram.com/pibu.ae" target="_blank" style="color: #8B6B4D; text-decoration: none;">@pibu.ae</a>
+                </div>
+                
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 1rem;">أرسل لنا رسالة</h3>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="الاسم">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="البريد الإلكتروني">
+                        </div>
+                        <div class="form-group">
+                            <textarea rows="4" placeholder="رسالتك..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">إرسال</button>
+                    </form>
+                </div>
+            </div>
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.4747!2d56.2678!3d25.0197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDAxJzEwLjkiTiA1NsKwMTYnMDQuMSJF!5e0!3m2!1sen!2sae!4v1620000000000!5m2!1sen!2sae" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.instagram.com/pibu.ae" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p>جميع الحقوق محفوظة © 2026 مطعم بيبو</p>
+    </footer>
+
+    <script>
+        function openMenu() {
+            window.open('https://www.pibu.ae/menu', '_blank');
+        }
+        function toggleLanguage() {
+            const html = document.documentElement;
+            const btn = document.querySelector('.lang-toggle');
+            if (html.lang === 'ar') {
+                html.lang = 'en';
+                html.dir = 'ltr';
+                btn.textContent = 'العربية';
+                document.querySelector('.hero h1').innerText = 'Pibu Restaurant';
+                document.querySelector('.hero p').innerText = 'Authentic Taste on Kalba Beach';
+            } else {
+                html.lang = 'ar';
+                html.dir = 'rtl';
+                btn.textContent = 'English';
+                document.querySelector('.hero h1').innerText = 'مطعم بيبو';
+                document.querySelector('.hero p').innerText = 'طعم أصيل على شاطئ كلباء';
+            }
+        }
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#contact' && targetId !== '#menu') {
+                    const target = document.querySelector(targetId);
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                } else if (targetId === '#contact') {
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>            color: white;
             text-decoration: none;
             font-size: 1.2rem;
             font-weight: 500;
