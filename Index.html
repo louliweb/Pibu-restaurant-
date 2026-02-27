@@ -2,68 +2,1290 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pibu Restaurant | مطعم بيبو</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    
+    <!-- ===== SEO الأساسي ===== -->
+    <title>Pibu Restaurant | مطعم بيبو - كلباء، الشارقة</title>
+    <meta name="description" content="مطعم بيبو في كلباء، الشارقة. أطباق عصرية، باستا، برجر، بيتزا، مشروبات وحلويات. تجربة راقية على شاطئ كلباء. Pibu Restaurant in Kalba, Sharjah.">
+    <meta name="keywords" content="Pibu, بيبو, مطعم كلباء, مطاعم الشارقة, ترافل باستا, برجر, ديناميت شريمب, Fuji Fries">
+    <meta name="author" content="Pibu Restaurant">
+    <meta name="robots" content="index, follow">
+    
+    <!-- ===== Open Graph ===== -->
+    <meta property="og:type" content="restaurant">
+    <meta property="og:title" content="Pibu Restaurant - مطعم بيبو">
+    <meta property="og:description" content="أطباق عصرية في أجواء راقية. كلباء، الشارقة.">
+    <meta property="og:image" content="https://i.ibb.co/mCRqnghP/1772187544088">
+    <meta property="og:url" content="https://pibu.ae">
+    <meta property="og:site_name" content="Pibu Restaurant">
+    <meta property="og:locale" content="ar_AE">
+    
+    <!-- ===== Twitter Card ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pibu Restaurant - مطعم بيبو">
+    <meta name="twitter:description" content="Modern dining in Kalba, Sharjah.">
+    <meta name="twitter:image" content="https://i.ibb.co/mCRqnghP/1772187544088">
+    
+    <!-- ===== Geo Tags ===== -->
+    <meta name="geo.region" content="AE-SH">
+    <meta name="geo.placename" content="Kalba, Sharjah">
+    <meta name="geo.position" content="25.0743;56.3557">
+    <meta name="ICBM" content="25.0743, 56.3557">
+    
+    <!-- ===== Google Fonts & Icons ===== -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Cairo', 'Montserrat', sans-serif;
             background-color: #FDF8F2;
             color: #2C2C2C;
+            overflow-x: hidden;
         }
-        .header {
-            background: #8B6B4D;
-            color: white;
-            padding: 1rem 2rem;
+
+        /* ===== متغيرات الألوان ===== */
+        :root {
+            --primary: #8B6B4D;
+            --secondary: #C6A43F;
+            --accent: #527A7A;
+            --light: #FDF8F2;
+            --dark: #2C2C2C;
+            --gray: #F5F0E8;
+            --white: #FFFFFF;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        /* ===== شريط التحميل ===== */
+        .loader {
             position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .nav-container {
+            inset: 0;
+            background: var(--light);
+            z-index: 99999;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--gray);
+            border-top-color: var(--secondary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ===== شريط التنقل ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(253, 248, 242, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(139, 107, 77, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .header.scrolled {
+            background: rgba(253, 248, 242, 0.98);
+            box-shadow: var(--shadow);
+        }
+        .container {
             max-width: 1400px;
             margin: 0 auto;
+            padding: 0 20px;
         }
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-        }
-        .nav-links {
+        .header__container {
             display: flex;
-            gap: 2rem;
             align-items: center;
+            justify-content: space-between;
+            height: 80px;
         }
-        .nav-links a {
-            color: white;
+        .logo__img {
+            height: 50px;
+            width: auto;
+            border-radius: 10px;
+        }
+        .nav__list {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+        .nav__link {
+            color: var(--dark);
             text-decoration: none;
-            font-size: 1.2rem;
-            transition: 0.3s;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            position: relative;
         }
-        .nav-links a:hover {
-            color: #F5E6D3;
+        .nav__link:hover,
+        .nav__link.active {
+            color: var(--secondary);
+        }
+        .nav__link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+        .nav__link:hover::after,
+        .nav__link.active::after {
+            width: 100%;
+        }
+        .header__actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         .lang-toggle {
             background: transparent;
-            border: 2px solid white;
-            color: white;
-            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
             border-radius: 30px;
-            cursor: pointer;
-            font-size: 1rem;
             font-weight: 600;
-            transition: 0.3s;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
         }
         .lang-toggle:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--dark);
+            transition: all 0.3s ease;
+        }
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ===== قسم الترحيب ===== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                        url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding-top: 80px;
+        }
+        .hero__content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .hero__subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .hero__title {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .hero__description {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        .hero__buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            font-family: 'Cairo', sans-serif;
+        }
+        .btn--primary {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        .btn--primary:hover {
+            background: #B38F2E;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(198, 164, 63, 0.3);
+        }
+        .btn--secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        .btn--secondary:hover {
+            background: var(--white);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        /* ===== الأقسام العامة ===== */
+        .section {
+            padding: 100px 0;
+        }
+        .section--gray {
+            background: var(--gray);
+        }
+        .section__title {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .section__divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            margin: 0 auto 50px;
+            border-radius: 3px;
+        }
+
+        /* ===== عن المطعم ===== */
+        .about__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about__image {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+        .about__content {
+            padding-right: 20px;
+        }
+        .about__subtitle {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+        .about__title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .about__text {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .rating-box {
+            background: var(--primary);
+            color: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .rating-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        .stars {
+            color: gold;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .rating-number {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        .reviews-count {
+            opacity: 0.9;
+        }
+
+        /* ===== شبكة المنيو ===== */
+        .menu__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .menu-item {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(139, 107, 77, 0.1);
+        }
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .menu-item__image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .menu-item__content {
+            padding: 25px;
+        }
+        .menu-item__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .menu-item__title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .menu-item__price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        .menu-item__desc {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--gray);
+            color: var(--primary);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .text-center {
+            text-align: center;
+        }
+
+        /* ===== شبكة الذبائح ===== */
+        .specials__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .special-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        .special-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .special-card__image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .special-card__content {
+            padding: 25px;
+        }
+
+        /* ===== شبكة التقييمات ===== */
+        .reviews__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .review-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(139, 107, 77, 0.1);
+            transition: all 0.3s ease;
+        }
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+        .review-stars {
+            color: gold;
+            margin-bottom: 15px;
+        }
+        .review-stars i {
+            margin-left: 3px;
+        }
+        .review-text {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .review-meta {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* ===== شبكة التواصل ===== */
+        .contact__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        .contact-info {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .info-item i {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            width: 30px;
+        }
+        .info-item h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        .info-item p {
+            color: #666;
+        }
+        .map {
+            width: 100%;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .map iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: grayscale(30%);
+        }
+
+        /* ===== الفوتر ===== */
+        .footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        .footer__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer__logo {
+            height: 60px;
+            width: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        .footer__text {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+        .footer__title {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        .footer__links {
+            list-style: none;
+        }
+        .footer__links li {
+            margin-bottom: 10px;
+        }
+        .footer__links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer__links a:hover {
+            color: var(--secondary);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .social-links a:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+        .footer__bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ===== مودال المنيو الكامل ===== */
+        .menu-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            overflow-y: auto;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .menu-modal.open {
+            display: block;
+            opacity: 1;
+        }
+        .menu-modal__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px;
+            background: rgba(0,0,0,0.9);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .menu-modal__title {
+            color: var(--white);
+            font-size: 2rem;
+        }
+        .menu-modal__close {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .menu-modal__close:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        .menu-modal__categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px 30px;
+            background: rgba(0,0,0,0.8);
+            position: sticky;
+            top: 90px;
+            z-index: 9;
+        }
+        .category-btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+        }
+        .category-btn.active,
+        .category-btn:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            border-color: var(--secondary);
+        }
+        .menu-modal__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 30px;
+        }
+        .full-menu-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            color: var(--white);
+        }
+        .full-menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--secondary);
+            transform: translateX(-5px);
+        }
+        .full-menu-name {
+            font-weight: 600;
+        }
+        .full-menu-price {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        /* ===== اللغة الإنجليزية ===== */
+        [dir="ltr"] {
+            font-family: 'Montserrat', 'Cairo', sans-serif;
+        }
+        [dir="ltr"] .nav__list {
+            gap: 40px;
+        }
+        [dir="ltr"] .about__content {
+            padding-right: 0;
+            padding-left: 20px;
+        }
+        .lang-ar, .lang-en {
+            display: inline;
+        }
+        [dir="ltr"] .lang-ar {
+            display: none;
+        }
+        [dir="rtl"] .lang-en {
+            display: none;
+        }
+
+        /* ===== تحسينات الجوال ===== */
+        @media (max-width: 1024px) {
+            .menu__grid,
+            .specials__grid,
+            .reviews__grid,
+            .footer__grid,
+            .menu-modal__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--light);
+                transition: left 0.3s ease;
+                padding: 40px 20px;
+            }
+            .nav.active {
+                left: 0;
+            }
+            .nav__list {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+            .nav__link {
+                font-size: 1.3rem;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .about__grid,
+            .contact__grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero__title {
+                font-size: 3.5rem;
+            }
+            .hero__description {
+                font-size: 1.2rem;
+            }
+            .hero__buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .btn {
+                width: 100%;
+            }
+            .section {
+                padding: 60px 0;
+            }
+            .section__title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu__grid,
+            .specials__grid,
+            .reviews__grid,
+            .menu-modal__grid {
+                grid-template-columns: 1fr;
+            }
+            .footer__grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .social-links {
+                justify-content: center;
+            }
+            .info-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== شريط التحميل ===== -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- ===== شريط التنقل ===== -->
+    <header class="header" id="header">
+        <div class="container header__container">
+            <a href="#" class="logo">
+                <img src="https://i.ibb.co/mCRqnghP/1772187544088" alt="Pibu Restaurant Logo" class="logo__img">
+            </a>
+            <nav class="nav" id="nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav__link active">الرئيسية</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link">عن المطعم</a></li>
+                    <li class="nav__item"><a href="#menu" class="nav__link">المنيو</a></li>
+                    <li class="nav__item"><a href="#specials" class="nav__link">عروضنا</a></li>
+                    <li class="nav__item"><a href="#reviews" class="nav__link">آراء الزبائن</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">اتصل بنا</a></li>
+                </ul>
+            </nav>
+            <div class="header__actions">
+                <button class="lang-toggle" id="langToggle">English</button>
+                <button class="menu-toggle" id="menuToggle" aria-label="القائمة">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== قسم الترحيب ===== -->
+    <section class="hero" id="home">
+        <div class="container hero__container">
+            <div class="hero__content">
+                <p class="hero__subtitle"><span class="lang-ar">Pibu Restaurant</span><span class="lang-en">Pibu Restaurant</span></p>
+                <h1 class="hero__title"><span class="lang-ar">مطعم بيبو</span><span class="lang-en">Pibu Restaurant</span></h1>
+                <p class="hero__description"><span class="lang-ar">تجربة طعام عصرية في كلباء</span><span class="lang-en">Modern Dining in Kalba</span></p>
+                <div class="hero__buttons">
+                    <a href="#" class="btn btn--primary"><span class="lang-ar">اطلب أونلاين</span><span class="lang-en">Order Online</span></a>
+                    <a href="#" class="btn btn--secondary"><span class="lang-ar">احجز طاولة</span><span class="lang-en">Book a Table</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== عن المطعم ===== -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section__title"><span class="lang-ar">عن المطعم</span><span class="lang-en">About Us</span></h2>
+            <div class="section__divider"></div>
+            <div class="about__grid">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Pibu Restaurant Interior" class="about__image">
+                <div class="about__content">
+                    <p class="about__subtitle"><span class="lang-ar">قصتنا</span><span class="lang-en">Our Story</span></p>
+                    <h3 class="about__title"><span class="lang-ar">نكهات عصرية في أجواء راقية</span><span class="lang-en">Modern Flavors in a Sophisticated Atmosphere</span></h3>
+                    <p class="about__text"><span class="lang-ar">مرحباً بكم في بيبو، وجهتكم المثالية لتجربة طعام استثنائية في كلباء. نقدم لكم مزيجاً فريداً من النكهات العصرية والمأكولات المبتكرة، محضرة بأجود المكونات الطازجة.</span><span class="lang-en">Welcome to Pibu, your destination for an exceptional dining experience in Kalba. We offer a unique blend of modern flavors and innovative dishes, prepared with the finest fresh ingredients.</span></p>
+                    <p class="about__text"><span class="lang-ar">فريق العمل الودود والمكان المريح يضمنان لكم تجربة لا تُنسى، سواء كنتم تبحثون عن عشاء رومانسي أو لقاء عائلي مميز.</span><span class="lang-en">Our friendly staff and comfortable setting ensure an unforgettable experience, whether you're looking for a romantic dinner or a special family gathering.</span></p>
+                    <div class="rating-box">
+                        <h3><span class="lang-ar">تقييمات العملاء</span><span class="lang-en">Customer Rating</span></h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <div class="rating-number">4.6</div>
+                        <div class="reviews-count"><span class="lang-ar">من أصل ٦٠+ تقييم</span><span class="lang-en">out of 60+ reviews</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== قائمة الطعام ===== -->
+    <section class="section section--gray" id="menu">
+        <div class="container">
+            <h2 class="section__title"><span class="lang-ar">قائمة الطعام</span><span class="lang-en">Our Menu</span></h2>
+            <div class="section__divider"></div>
+            <div class="menu__grid">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1645112411342-4665c449a020?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Truffle Pasta" class="menu-item__image">
+                    <div class="menu-item__content">
+                        <div class="menu-item__header">
+                            <h3 class="menu-item__title">Truffle Pasta</h3>
+                            <span class="menu-item__price">51 dh</span>
+                        </div>
+                        <p class="menu-item__desc">Penne pasta, garlic, onion, truffle paste, cooking cream, mushrooms, parmesan</p>
+                        <span class="badge"><span class="lang-ar">الأكثر مبيعاً</span><span class="lang-en">Bestseller</span></span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Jalapeno Burger" class="menu-item__image">
+                    <div class="menu-item__content">
+                        <div class="menu-item__header">
+                            <h3 class="menu-item__title">Jalapeno Burger</h3>
+                            <span class="menu-item__price">49 dh</span>
+                        </div>
+                        <p class="menu-item__desc">Fresh beef patties, lettuce, sliced cheese, jalapeños, BM sauce</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Dynamite Shrimps" class="menu-item__image">
+                    <div class="menu-item__content">
+                        <div class="menu-item__header">
+                            <h3 class="menu-item__title">Dynamite Shrimps</h3>
+                            <span class="menu-item__price">40 dh</span>
+                        </div>
+                        <p class="menu-item__desc">Fried shrimps, sriracha mayo, spring onion</p>
+                        <span class="badge"><span class="lang-ar">مقبلات</span><span class="lang-en">Appetizer</span></span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Truffle Pizza" class="menu-item__image">
+                    <div class="menu-item__content">
+                        <div class="menu-item__header">
+                            <h3 class="menu-item__title">Truffle Pizza</h3>
+                            <span class="menu-item__price">55 dh</span>
+                        </div>
+                        <p class="menu-item__desc">Italian dough, mozzarella, mushrooms, black truffle</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Mushroom Beef Risotto" class="menu-item__image">
+                    <div class="menu-item__content">
+                        <div class="menu-item__header">
+                            <h3 class="menu-item__title">Mushroom Beef Risotto</h3>
+                            <span class="menu-item__price">55 dh</span>
+                        </div>
+                        <p class="menu-item__desc">Risotto rice, cream, mushrooms, parmesan, brisket beef, bbq sauce</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Spicy Ponche" class="menu-item__image">
+                    <div class="menu-item__content">
+                        <div class="menu-item__header">
+                            <h3 class="menu-item__title">Spicy Ponche</h3>
+                            <span class="menu-item__price">21 dh</span>
+                        </div>
+                        <p class="menu-item__desc">Chili syrup, passion fruit, dragon fruit</p>
+                        <span class="badge"><span class="lang-ar">موكتيل</span><span class="lang-en">Mocktail</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn--primary" onclick="openFullMenu()"><span class="lang-ar">عرض القائمة الكاملة</span><span class="lang-en">View Full Menu</span> <i class="fas fa-arrow-left"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== العروض الخاصة ===== -->
+    <section class="section" id="specials">
+        <div class="container">
+            <h2 class="section__title"><span class="lang-ar">عروضنا الخاصة</span><span class="lang-en">Special Offers</span></h2>
+            <div class="section__divider"></div>
+            <div class="specials__grid">
+                <div class="special-card">
+                    <img src="https://images.unsplash.com/photo-1608039829572-78524f79c4c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Tokyo Salad" class="special-card__image">
+                    <div class="special-card__content">
+                        <div class="menu-item__header">
+                            <h3 class="menu-item__title">Tokyo Salad</h3>
+                            <span class="menu-item__price">35 dh</span>
+                        </div>
+                        <p class="menu-item__desc">Arugula, strawberry, beetroot, quinoa, Tokyo sauce, feta</p>
+                    </div>
+                </div>
+                <div class="special-card">
+                    <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Molten Chocolate Cake" class="special-card__image">
+                    <div class="special-card__content">
+                        <div class="menu-item__header">
+                            <h3 class="menu-item__title">Molten Chocolate Cake</h3>
+                            <span class="menu-item__price">28 dh</span>
+                        </div>
+                        <p class="menu-item__desc">Warm chocolate cake with gooey molten center</p>
+                    </div>
+                </div>
+                <div class="special-card">
+                    <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Açaí Bowl" class="special-card__image">
+                    <div class="special-card__content">
+                        <div class="menu-item__header">
+                            <h3 class="menu-item__title">Açaí Bowl</h3>
+                            <span class="menu-item__price">29 dh</span>
+                        </div>
+                        <p class="menu-item__desc">Fresh acai with berries and peanut butter</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== آراء الزبائن ===== -->
+    <section class="section section--gray" id="reviews">
+        <div class="container">
+            <h2 class="section__title"><span class="lang-ar">آراء الزبائن</span><span class="lang-en">Customer Reviews</span></h2>
+            <div class="section__divider"></div>
+            <div class="reviews__grid">
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text"><span class="lang-ar">"بكل صراحة أكلهم جداً لذيذ، الأطباق كلها رائعة والموظفين ودودين جداً"</span><span class="lang-en">"Honestly, the food is delicious, all dishes are amazing and the staff are very friendly"</span></p>
+                    <p class="review-meta">- أمنة الحميدية</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text"><span class="lang-ar">"مكان راقي، أطباق متنوعة وحلوة، والخدمة على مستوى عالي"</span><span class="lang-en">"Sophisticated place, diverse and delicious dishes, high-level service"</span></p>
+                    <p class="review-meta">- Saeed Alnaqbi</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text"><span class="lang-ar">"Amazing tasty food, nice team, we will come back there for sure again"</span><span class="lang-en">"Amazing tasty food, nice team, we will come back there for sure again"</span></p>
+                    <p class="review-meta">- Evelina Dark</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== اتصل بنا ===== -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section__title"><span class="lang-ar">اتصل بنا</span><span class="lang-en">Contact Us</span></h2>
+            <div class="section__divider"></div>
+            <div class="contact__grid">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4><span class="lang-ar">العنوان</span><span class="lang-en">Address</span></h4>
+                            <p><span class="lang-ar">حي الغلة - كلباء، الشارقة</span><span class="lang-en">Al Ghala - Kalba, Sharjah</span></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4><span class="lang-ar">الهاتف</span><span class="lang-en">Phone</span></h4>
+                            <p>056 985 0058</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4><span class="lang-ar">ساعات العمل</span><span class="lang-en">Opening Hours</span></h4>
+                            <p><span class="lang-ar">يومياً: ٥:٠٠ مساءً - ١٢:٠٠ صباحاً</span><span class="lang-en">Daily: 5:00 PM - 12:00 AM</span></p>
+                            <p><span class="lang-ar">الجمعة: ٥:٠٠ مساءً - ١:٠٠ صباحاً</span><span class="lang-en">Friday: 5:00 PM - 1:00 AM</span></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fab fa-instagram"></i>
+                        <div>
+                            <h4>Instagram</h4>
+                            <a href="https://www.instagram.com/pibu.ae" target="_blank" style="color: var(--secondary); text-decoration: none;">@pibu.ae</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.4747!2d56.2678!3d25.0197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDAxJzEwLjkiTiA1NsKwMTYnMDQuMSJF!5e0!3m2!1sen!2sae!4v1620000000000!5m2!1sen!2sae" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== الفوتر ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <img src="https://i.ibb.co/mCRqnghP/1772187544088" alt="Pibu Logo" class="footer__logo">
+                    <p class="footer__text"><span class="lang-ar">نقدم لكم تجربة طعام راقية في كلباء</span><span class="lang-en">Offering a sophisticated dining experience in Kalba</span></p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/pibu.ae" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer__title"><span class="lang-ar">روابط سريعة</span><span class="lang-en">Quick Links</span></h4>
+                    <ul class="footer__links">
+                        <li><a href="#about"><span class="lang-ar">عن المطعم</span><span class="lang-en">About Us</span></a></li>
+                        <li><a href="#menu"><span class="lang-ar">المنيو</span><span class="lang-en">Menu</span></a></li>
+                        <li><a href="#specials"><span class="lang-ar">العروض</span><span class="lang-en">Specials</span></a></li>
+                        <li><a href="#reviews"><span class="lang-ar">التقييمات</span><span class="lang-en">Reviews</span></a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer__title"><span class="lang-ar">معلومات الاتصال</span><span class="lang-en">Contact Info</span></h4>
+                    <ul class="footer__links">
+                        <li><i class="fas fa-phone" style="margin-left: 10px;"></i> 056 985 0058</li>
+                        <li><i class="fas fa-map-marker-alt" style="margin-left: 10px;"></i> <span class="lang-ar">كلباء، الشارقة</span><span class="lang-en">Kalba, Sharjah</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>© 2026 Pibu Restaurant. <span class="lang-ar">جميع الحقوق محفوظة</span><span class="lang-en">All Rights Reserved</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== مودال المنيو الكامل ===== -->
+    <div class="menu-modal" id="menuModal">
+        <div class="menu-modal__header">
+            <h2 class="menu-modal__title"><span class="lang-ar">القائمة الكاملة</span><span class="lang-en">Full Menu</span></h2>
+            <button class="menu-modal__close" onclick="closeFullMenu()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="menu-modal__categories" id="menuCategories">
+            <button class="category-btn active" onclick="filterMenu('all')"><span class="lang-ar">الكل</span><span class="lang-en">All</span></button>
+            <button class="category-btn" onclick="filterMenu('appetizers')"><span class="lang-ar">مقبلات</span><span class="lang-en">Appetizers</span></button>
+            <button class="category-btn" onclick="filterMenu('main')"><span class="lang-ar">أطباق رئيسية</span><span class="lang-en">Main</span></button>
+            <button class="category-btn" onclick="filterMenu('pizza')">Pizza</button>
+            <button class="category-btn" onclick="filterMenu('pasta')">Pasta</button>
+            <button class="category-btn" onclick="filterMenu('desserts')"><span class="lang-ar">حلويات</span><span class="lang-en">Desserts</span></button>
+            <button class="category-btn" onclick="filterMenu('drinks')"><span class="lang-ar">مشروبات</span><span class="lang-en">Drinks</span></button>
+        </div>
+        <div class="menu-modal__grid" id="fullMenuGrid">
+            <!-- يتم تعبئتها بالجافاسكريبت -->
+        </div>
+    </div>
+
+    <script>
+        // ===== إخفاء شريط التحميل =====
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loader').classList.add('hidden');
+            }, 800);
+        });
+
+        // ===== ثبات شريط التنقل =====
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // ===== قائمة الجوال =====
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+        menuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        // ===== إغلاق القائمة عند النقر على رابط =====
+        document.querySelectorAll('.nav__link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+                nav.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
+
+        // ===== تفعيل الرابط النشط =====
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav__link');
+        window.addEventListener('scroll', function() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ===== تبديل اللغة =====
+        const langToggle = document.getElementById('langToggle');
+        const html = document.documentElement;
+        langToggle.addEventListener('click', function() {
+            if (html.dir === 'rtl') {
+                html.dir = 'ltr';
+                this.textContent = 'العربية';
+            } else {
+                html.dir = 'rtl';
+                this.textContent = 'English';
+            }
+        });
+
+        // ===== بيانات المنيو الكامل =====
+        const fullMenuData = [
+            // مقبلات
+            { cat: 'appetizers', name: 'Fuji Fries', price: '37 dh', desc: 'Sweet potato fries, potato fries, parmesan cheese, furikake, honey sriracha mayo' },
+            { cat: 'appetizers', name: 'Dynamite Shrimps', price: '40 dh', desc: 'Fried shrimps, sriracha mayo, spring onion' },
+            { cat: 'appetizers', name: 'Tokyo Salad', price: '35 dh', desc: 'Arugula, strawberry, beetroot, quinoa, Tokyo sauce, feta' },
+            { cat: 'appetizers', name: 'Pibu Crab Salad', price: '30 dh', desc: 'Red cabbage, corn, crab sticks, sesame, coriander, Bibo mayo' },
+            { cat: 'appetizers', name: 'HSP Smokey Fries', price: '45 dh', desc: 'Potato wedges, brisket, sour cream, bbq mayo, green onion' },
+            { cat: 'appetizers', name: 'Charred Corn Rib', price: '33 dh', desc: 'Corn, butter, special seasoning, ranch sauce, parsley' },
+            { cat: 'appetizers', name: 'Honey Spice Chicken', price: '34 dh', desc: 'Tender chicken, spicy honey sauce, sesame, green onions' },
+            { cat: 'appetizers', name: 'Fried Calamari', price: '38 dh', desc: 'Crispy calamari, lemon, chimechuri sauce, BM sauce' },
+            
+            // أطباق رئيسية
+            { cat: 'main', name: 'Jalapeno Burger', price: '49 dh', desc: 'Beef patties, lettuce, cheese, jalapeños, BM sauce' },
+            { cat: 'main', name: 'Beef Brisket Burger', price: '50 dh', desc: 'Brisket, bun, cheese, onion ring, bbq mayo' },
+            { cat: 'main', name: 'Fried Chicken Burger', price: '39 dh', desc: 'Crispy chicken, bun, red cabbage, cheese' },
+            { cat: 'main', name: 'Rosa Pasta', price: '37 dh', desc: 'Cream, tomato paste, broccoli, parmesan' },
+            { cat: 'main', name: 'Pesto Pasta', price: '40 dh', desc: 'Penne, pesto sauce, garlic, onion' },
+            { cat: 'main', name: 'Alfredo Pasta', price: '37 dh', desc: 'Penne, mushroom, cooking cream, parmesan' },
+            { cat: 'main', name: 'Truffle Pasta', price: '51 dh', desc: 'Penne, truffle paste, mushroom, parmesan' },
+            { cat: 'main', name: 'Mushroom Beef Risotto', price: '55 dh', desc: 'Risotto, cream, mushroom, parmesan, brisket' },
+            { cat: 'main', name: 'Mix Sauce Risotto', price: '37 dh', desc: 'Risotto, cream, garlic, onion, mushroom, parmesan' },
+            { cat: 'main', name: 'Lasagna', price: '56 dh', desc: 'Pasta layers, minced meat, béchamel, mozzarella' },
+            
+            // بيتزا
+            { cat: 'pizza', name: 'Crispy Chicken Pizza', price: '52 dh', desc: 'Italian dough, mozzarella, parmesan, tomato sauce, dynamite sauce, crispy chicken' },
+            { cat: 'pizza', name: 'Pepperoni Pizza', price: '48 dh', desc: 'Italian dough, pepperoni, mozzarella, parmesan, parsley' },
+            { cat: 'pizza', name: 'Smoked Brisket Meat Pizza', price: '55 dh', desc: 'Italian dough, brisket, jalapeños, pickles, bbq sauce' },
+            { cat: 'pizza', name: 'Dynamite Shrimp Pizza', price: '56 dh', desc: 'Italian dough, mozzarella, dynamite sauce, dynamite shrimp' },
+            { cat: 'pizza', name: 'Napolitana Pizza', price: '45 dh', desc: 'Italian dough, mozzarella, parmesan, tomato sauce' },
+            { cat: 'pizza', name: 'Truffle Pizza', price: '55 dh', desc: 'Italian dough, mozzarella, mushrooms, black truffle' },
+            
+            // حلويات
+            { cat: 'desserts', name: 'Molten Chocolate Cake', price: '28 dh', desc: 'Warm chocolate cake with gooey molten center' },
+            { cat: 'desserts', name: 'French Toast', price: '30 dh', desc: 'Toasted brioche, marble syrup, strawberries, blueberries' },
+            { cat: 'desserts', name: 'Açaí Bowl', price: '29 dh', desc: 'Fresh acai, bananas, strawberries, blackberries, peanut butter' },
+            
+            // مشروبات
+            { cat: 'drinks', name: 'Spicy Ponche', price: '21 dh', desc: 'Chili syrup, passion fruit, dragon fruit' },
+            { cat: 'drinks', name: 'Shiso Mojito', price: '20 dh', desc: 'Cucumber, lemon, yuzu, ginger ale' },
+            { cat: 'drinks', name: 'Cherry Bomb', price: '20 dh', desc: 'Orange, lemon, soda' },
+            { cat: 'drinks', name: 'Alokozay Cola', price: '9 dh', desc: 'Classic cola' },
+            { cat: 'drinks', name: 'Alokozay Breeze', price: '9 dh', desc: 'Light fizzy drink' },
+            { cat: 'drinks', name: 'Açaí Smoothie', price: '35 dh', desc: 'Açaí, peanut sauce' }
+        ];
+
+        // ===== فتح المودال =====
+        window.openFullMenu = function() {
+            document.getElementById('menuModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            filterMenu('all');
+        }
+
+        // ===== إغلاق المودال =====
+        window.closeFullMenu = function() {
+            document.getElementById('menuModal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // ===== تصفية المنيو =====
+        window.filterMenu = function(category) {
+            const grid = document.getElementById('fullMenuGrid');
+            const buttons = document.querySelectorAll('.category-btn');
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.includes(category === 'all' ? 'الكل' : 
+                    category === 'appetizers' ? 'مقبلات' :
+                    category === 'main' ? 'أطباق' :
+                    category === 'pizza' ? 'Pizza' :
+                    category === 'pasta' ? 'Pasta' :
+                    category === 'desserts' ? 'حلويات' : 'مشروبات')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            const filtered = category === 'all' ? fullMenuData : fullMenuData.filter(item => item.cat === category);
+            
+            grid.innerHTML = '';
+            filtered.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'full-menu-item';
+                div.innerHTML = `
+                    <span class="full-menu-name">${item.name}</span>
+                    <div style="text-align: left;">
+                        <span class="full-menu-price">${item.price}</span>
+                        <p style="color: #999; font-size: 0.85rem; margin-top: 5px;">${item.desc}</p>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        // ===== إغلاق المودال بالـ ESC =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeFullMenu();
+        });
+    </script>
+</body>
+</html>        .lang-toggle:hover {
             background: white;
             color: #8B6B4D;
         }
